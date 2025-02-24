@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Log-in page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+   <link rel="stylesheet" href="log.css">
+</head>
+
+<body>
+    <div class="wrapper" style="background-image: url('jki.png'); background-size:cover;">
+        <div class="inner" style="height: 500px; width: 65%;">
+            <div class="image-holder">
+                <img src="qwe.png" alt="" style="height: 460px;">
+            </div>
+            <form action="./php/login.php" method="POST">
+                <h3>Log-in</h3>
+                <div class="form-wrapper">
+                    <input style=" padding: 10px; margin: 10px;" type="email" id="email" placeholder="Email Address"
+                        class="form-control">
+                    <i class="zmdi zmdi-email"></i>
+                    <span id="emailError" style="display: none; color: red;  padding: 10px; margin: 10px;">
+                    </span>
+                </div>
+                <div class="form-wrapper">
+                    <input style=" padding: 10px; margin: 10px;" type="password" id="password" placeholder="Password"
+                        class="form-control">
+                    <i class="zmdi zmdi-lock"></i>
+                    <span id="passwordError" style="display: none; color: red;  padding: 10px; margin: 10px;">
+                                                                                                        
+                </div>
+                <button type="button" style="width: 100%;" id="registerButton">Register <i
+                        class="zmdi zmdi-arrow-right"></i></button>
+                <br>
+                <p>Don't <a href="sing-up-page.html">have an account</a>?</p>
+            </form>
+        </div>
+    </div>
+   <script>
+    const email = document.getElementById("email");
+    const password = document.getElementById("password");
+    const registerButton = document.getElementById("registerButton");
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    function rgx() {
+        const emailValue = email.value.trim();
+        const emailError = document.getElementById("emailError");
+
+        // Clear previous error messages and styles
+        email.classList.remove("border-danger", "border-success");
+        emailError.style.display = "none";
+
+        if (emailValue === "") {
+            emailError.textContent = "Email address is required";
+            emailError.style.display = "block";
+            email.classList.add("border-danger");
+        } else if (!emailPattern.test(emailValue)) {
+            emailError.textContent = "Please enter a valid email address";
+            emailError.style.display = "block";
+            email.classList.add("border-danger");
+        } else {
+            emailError.style.display = "none";
+            email.classList.add("border-success");
+        }
+    }
+
+    function validatePassword() {
+        const passwordValue = password.value.trim();
+        const passwordError = document.getElementById("passwordError");
+
+        // Clear previous error messages and styles
+        password.classList.remove("border-danger", "border-success");
+        passwordError.style.display = "none";
+
+        if (passwordValue === "") {
+            passwordError.textContent = "Password is required";
+            passwordError.style.display = "block";
+            password.classList.add("border-danger");
+        } else if (!passwordPattern.test(passwordValue)) {
+            passwordError.textContent = "Password must contain at least 8 characters, including uppercase, lowercase, numbers, and special characters";
+            passwordError.style.display = "block";
+            password.classList.add("border-danger");
+        } else {
+            passwordError.style.display = "none";
+            password.classList.add("border-success");
+        }
+    }
+
+    function validateSignup() {
+        if (email.value.trim() === "") {
+            email.classList.add("border", "border-danger", "border-2");
+        }
+        if (password.value.trim() === "") {
+            password.classList.add("border", "border-danger", "border-2");
+        }
+    }
+
+    registerButton.addEventListener("click", () => {
+        rgx();
+        validatePassword();
+        validateSignup();
+    });
+
+    function showError(spanId) {
+        document.getElementById(spanId).style.display = "block";
+    }
+
+    function hideError(spanId) {
+        document.getElementById(spanId).style.display = "none";
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Registration Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+<link rel="stylesheet" href="sing.css">
+</head>
+
+<body>
+  <div class="wrapper" style="background-image: url('jki.png'); background-size:cover;">
+    <div class="inner" style="height: 500px; width: 65%;">
+      <div class="image-holder">
+        <img src="qwe.png" alt="" style="height: 460px;">
+      </div>
+      <form action="./php/login.php" method="POST">
+        <h3>Registration Form</h3>
+        <div class="form-group">
+          <input type="text" id="firstName" placeholder="First Name" class="form-control">
+          <span id="firstNameError" style="display: none; color: red;"></span>
+          <input type="text" id="lastName" placeholder="Last Name" class="form-control">
+          <span id="lastNameError" style="display: none; color: red;"></span>
+        </div>
+        <div class="form-wrapper">
+          <input type="text" id="email" placeholder="Email Address" class="form-control">
+          <i class="zmdi zmdi-email"></i>
+          <span id="emailError" style="display: none; color: red;"></span>
+        </div>
+        <div class="form-wrapper">
+          <input type="password" id="password" placeholder="Password" class="form-control">
+          <span id="passwordError" style="display: none; color: red;"></span>
+        </div>
+        <div class="form-wrapper">
+          <input type="password" id="conPassword" placeholder="Confirm Password" class="form-control">
+          <span id="conPasswordError" style="display: none; color: red;"></span>
+        </div>
+        <button type="button" style="width: 100%;" id="registerButton">Register <i class="zmdi zmdi-arrow-right"></i></button>
+        <br>
+        <p>Already <a href="log-in-page.html">have an account</a>?</p>
+      </form>
+    </div>
+  </div>
+  <script>
+    const firstName = document.getElementById("firstName");
+const lastName = document.getElementById("lastName");
+const email = document.getElementById("email");
+const password = document.getElementById("password");
+const conPassword = document.getElementById("conPassword");
+const registerButton = document.getElementById("registerButton");
+const globalError = document.getElementById("globalError");
+
+const namePattern = /^[A-Za-z\s'-]+$/;
+const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+function validateFirstName() {
+  const firstNameValue = firstName.value.trim();
+  const firstNameError = document.getElementById("firstNameError");
+
+  if (firstNameValue === "") {
+    firstNameError.textContent = "First Name is required.";
+    firstNameError.style.display = "block";
+    firstName.classList.add("border-danger");
+    firstName.classList.remove("border-success");
+    return false;
+  } else if (!namePattern.test(firstNameValue)) {
+    firstNameError.textContent = "First Name can only contain letters, spaces, hyphens, or apostrophes.";
+    firstNameError.style.display = "block";
+    firstName.classList.add("border-danger");
+    firstName.classList.remove("border-success");
+    return false;
+  } else {
+    firstNameError.textContent = "";
+    firstNameError.style.display = "none";
+    firstName.classList.remove("border-danger");
+    firstName.classList.add("border-success");
+    return true;
+  }
+}
+
+function validateLastName() {
+  const lastNameValue = lastName.value.trim();
+  const lastNameError = document.getElementById("lastNameError");
+
+  if (lastNameValue === "") {
+    lastNameError.textContent = "Last Name is required.";
+    lastNameError.style.display = "block";
+    lastName.classList.add("border-danger");
+    lastName.classList.remove("border-success");
+    return false;
+  } else if (!namePattern.test(lastNameValue)) {
+    lastNameError.textContent = "Last Name can only contain letters, spaces, hyphens, or apostrophes.";
+    lastNameError.style.display = "block";
+    lastName.classList.add("border-danger");
+    lastName.classList.remove("border-success");
+    return false;
+  } else {
+    lastNameError.textContent = "";
+    lastNameError.style.display = "none";
+    lastName.classList.remove("border-danger");
+    lastName.classList.add("border-success");
+    return true;
+  }
+}
+
+function validateEmail() {
+  const emailValue = email.value.trim();
+  const emailError = document.getElementById("emailError");
+
+  if (emailValue === "") {
+    emailError.textContent = "Email is required.";
+    emailError.style.display = "block";
+    email.classList.add("border-danger");
+    email.classList.remove("border-success");
+    return false;
+  } else if (!emailPattern.test(emailValue)) {
+    emailError.textContent = "Please enter a valid email address.";
+    emailError.style.display = "block";
+    email.classList.add("border-danger");
+    email.classList.remove("border-success");
+    return false;
+  } else {
+    emailError.textContent = "";
+    emailError.style.display = "none";
+    email.classList.remove("border-danger");
+    email.classList.add("border-success");
+    return true;
+  }
+}
+
+function validatePassword() {
+  const passwordValue = password.value.trim();
+  const passwordError = document.getElementById("passwordError");
+
+  if (passwordValue === "") {
+    passwordError.textContent = "Password is required.";
+    passwordError.style.display = "block";
+    password.classList.add("border-danger");
+    password.classList.remove("border-success");
+    return false;
+  } else if (!passwordPattern.test(passwordValue)) {
+    passwordError.textContent = "Password must be at least 8 characters long with one uppercase letter, one lowercase letter, one number, and one special character.";
+    passwordError.style.display = "block";
+    password.classList.add("border-danger");
+    password.classList.remove("border-success");
+    return false;
+  } else {
+    passwordError.textContent = "";
+    passwordError.style.display = "none";
+    password.classList.remove("border-danger");
+    password.classList.add("border-success");
+    return true;
+  }
+}
+
+function validateConfirmPassword() {
+  const conPasswordValue = conPassword.value.trim();
+  const conPasswordError = document.getElementById("conPasswordError");
+
+  if (conPasswordValue === "") {
+    conPasswordError.textContent = "Confirm Password is required.";
+    conPasswordError.style.display = "block";
+    conPassword.classList.add("border-danger");
+    conPassword.classList.remove("border-success");
+    return false;
+  } else if (conPasswordValue !== password.value.trim()) {
+    conPasswordError.textContent = "Passwords do not match.";
+    conPasswordError.style.display = "block";
+    conPassword.classList.add("border-danger");
+    conPassword.classList.remove("border-success");
+    return false;
+  } else {
+    conPasswordError.textContent = "";
+    conPasswordError.style.display = "none";
+    conPassword.classList.remove("border-danger");
+    conPassword.classList.add("border-success");
+    return true;
+  }
+}
+
+function validateForm() {
+  const errors = [];
+
+  if (!validateFirstName()) errors.push("First Name is invalid.");
+  if (!validateLastName()) errors.push("Last Name is invalid.");
+  if (!validateEmail()) errors.push("Email is invalid.");
+  if (!validatePassword()) errors.push("Password is invalid.");
+  if (!validateConfirmPassword()) errors.push("Confirm Password is invalid.");
+
+  if (errors.length > 0) {
+    globalError.textContent = errors.join(" ");
+    globalError.style.display = "block";
+    return false;
+  } else {
+    globalError.textContent = "";
+    globalError.style.display = "none";
+    return true;
+  }
+}
+
+firstName.addEventListener("input", validateFirstName);
+lastName.addEventListener("input", validateLastName);
+email.addEventListener("input", validateEmail);
+password.addEventListener("input", validatePassword);
+conPassword.addEventListener("input", validateConfirmPassword);
+
+registerButton.addEventListener("click", () => {
+  if (validateForm()) {
+    document.querySelector("form").submit();
+  }
+});
+  </script>
+</body>
+
+</html>
